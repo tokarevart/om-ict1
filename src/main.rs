@@ -20,7 +20,7 @@ fn apply_3_methods(range: Range<f64>, eps: f64,
     println!("");
 
     let init = 0.5 * (range.start + range.end);
-    let x = om_nt::search(range.clone(), init, eps, der, der2);
+    let x = om_nt::search(init, eps, der, der2);
     println!("newton search");
     println!("x                : {}", x);
     println!("x^2+3*x*(ln(x)-1): {}", f(x));
@@ -43,7 +43,7 @@ fn apply_nt_on_3_ranges(ranges: [Range<f64>; 3], eps: f64,
 
     for i in 0..3 {
         let init = 0.5 * (ranges[i].start + ranges[i].end);
-        let x = om_nt::search(ranges[i].clone(), init, eps, |x| der(x), |x| der2(x));
+        let x = om_nt::search(init, eps, |x| der(x), |x| der2(x));
         println!("newton search, section {}", i + 1);
         println!("x                : {}", x);
         println!("x^2+3*x*(ln(x)-1): {}", f(x));
@@ -97,7 +97,7 @@ fn main() {
     let mut bis_file = File::create("bis.txt").unwrap();
     let mut pl_file = File::create("pl.txt").unwrap();
     let mut nt_file = File::create("nt.txt").unwrap();
-    for n in 1..=30 {
+    for n in 1..=300 {
         let delta = f32::EPSILON as f64;
         let x = om_bis::search_with_n(range.clone(), delta, n, |x| f(x));
         writeln!(&mut bis_file, "{}\t{}", n, (x - etalon_x).abs()).unwrap();
@@ -109,7 +109,7 @@ fn main() {
         // writeln!(&mut pl_file, "{}", (f(x) - etalon_y).abs()).unwrap();
 
         let init = range.start + f32::EPSILON as f64;
-        let x = om_nt::search_with_n(range.clone(), init, n, |x| der(x), |x| der2(x));
+        let x = om_nt::search_with_n(init, n, |x| der(x), |x| der2(x));
         writeln!(&mut nt_file, "{}\t{}", n, (x - etalon_x).abs()).unwrap();
         // writeln!(&mut nt_file, "{}", (f(x) - etalon_y).abs()).unwrap();
     }
