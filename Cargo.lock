@@ -9,4 +9,14 @@ name = "om-ict1"
 version = "0.1.0"
 dependencies = [
  "om-bis",
+ "om-nt",
+ "om-pl",
 ]
+
+[[package]]
+name = "om-nt"
+version = "0.1.0"
+
+[[package]]
+name = "om-pl"
+version = "0.1.0"

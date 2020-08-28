@@ -8,3 +8,5 @@ edition = "2018"
 
 [dependencies]
 om-bis = { path = "../om-bis", version = "*" }
+om-pl = { path = "../om-pl", version = "*" }
+om-nt = { path = "../om-nt", version = "*" }
